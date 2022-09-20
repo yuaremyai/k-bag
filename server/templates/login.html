@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Bag</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/login.js') }}" defer></script>
+</head>
+<body class="dark">
+    <div class="wrapper">
+        {% include 'layout/nav.html' %}
+
+        <form class="log-card dark" autocomplete="off" onsubmit='get_forms(event)'>
+            <h2>Log in</h2>
+            <div class="mail-block">
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Email" required>
+            </div>
+            <div class="pass-block">
+                <label for="pass">Password:</label>
+                <input type="password" id="pass" placeholder="Password" required>
+            </div>
+            <div class="status-block" style="text-align:center;"></div>
+            <div class="btn-block">
+                <button class="btn log-btn dark">Log in</button>
+                <button class="btn reg-btn dark">Register</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

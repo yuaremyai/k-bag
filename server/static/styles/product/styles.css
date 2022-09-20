@@ -1,0 +1,276 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+}
+
+.light {
+  color: #6E85B7;
+  background-color: #F8F9D7;
+}
+
+.dark {
+  color: #e2b58d;
+  background-color: #161616;
+}
+
+body {
+  background-image: url(../../images/back.png);
+  background-size: 100%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+@media screen and (max-width: 767.98px) {
+  body {
+    background-image: none;
+  }
+}
+
+body.dark {
+  background-color: black;
+}
+
+body.light {
+  background-color: #fbfaf5;
+}
+
+.wrapper {
+  width: 70%;
+  margin: auto;
+}
+@media screen and (max-width: 767.98px) {
+  .wrapper {
+    width: 100%;
+  }
+}
+
+main > * {
+  margin-top: 10px;
+}
+
+.nav-bar {
+  display: flex;
+  list-style-type: none;
+  justify-content: left;
+  align-items: center;
+  height: 80px;
+  padding: 20px 40px;
+}
+@media screen and (max-width: 479.98px) {
+  .nav-bar {
+    padding: 20px 30px;
+  }
+}
+
+.nav-item {
+  float: left;
+  padding: 0px 20px;
+  font-size: 24px;
+}
+.nav-item a {
+  transition: color 0.2s ease-in;
+  color: inherit;
+}
+@media screen and (max-width: 479.98px) {
+  .nav-item {
+    font-size: 18px;
+    padding: 0px 10px;
+  }
+}
+
+.nav-item.dark:hover {
+  color: #bf7431;
+}
+
+.nav-item.light:hover {
+  color: #37486f;
+}
+
+.theme-svg {
+  display: flex;
+  margin-left: auto;
+  align-items: flex-end;
+}
+
+.theme-chng {
+  width: 30px;
+  height: 30px;
+}
+@media screen and (max-width: 479.98px) {
+  .theme-chng {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 20px 25px;
+  margin-top: 10px;
+}
+
+.footer-info {
+  list-style-type: none;
+}
+.footer-info li {
+  padding: 5px 0px;
+}
+
+.inst-link {
+  transition: color 0.2s ease-in;
+}
+
+.inst-link.dark:hover {
+  color: #bf7431;
+}
+
+.inst-link.light:hover {
+  color: #37486f;
+}
+
+.content {
+  padding: 10px 15px;
+}
+
+.product-title {
+  font-size: 30px;
+  padding: 5px;
+}
+@media screen and (max-width: 767.98px) {
+  .product-title {
+    text-align: center;
+  }
+}
+@media screen and (max-width: 479.98px) {
+  .product-title {
+    font-size: 20px;
+  }
+}
+
+.image-container {
+  display: flex;
+}
+@media screen and (max-width: 991.98px) {
+  .image-container {
+    flex-flow: column;
+  }
+}
+
+.product-main-img {
+  height: 350px;
+  padding-right: 30px;
+}
+@media screen and (max-width: 991.98px) {
+  .product-main-img {
+    margin: 10px auto;
+    padding: 0px;
+  }
+}
+@media screen and (max-width: 479.98px) {
+  .product-main-img {
+    height: 280px;
+  }
+}
+
+@media screen and (max-width: 991.98px) {
+  .stls-container {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.product-image {
+  height: 50px;
+  margin-right: 10px;
+}
+@media screen and (max-width: 991.98px) {
+  .product-image {
+    height: 70px;
+  }
+}
+@media screen and (max-width: 479.98px) {
+  .product-image {
+    height: 50px;
+  }
+}
+
+.swtr-stl {
+  display: none;
+}
+
+label {
+  display: inline-block;
+}
+
+.swtr-stl:checked ~ .product-image.dark, .product-image.dark:hover {
+  outline: 3px solid #bf7431;
+}
+
+.swtr-stl:checked ~ .product-image.light, .product-image.light:hover {
+  outline: 3px solid #37486f;
+}
+
+.product-info {
+  width: 100%;
+  padding: 0px 15px 10px 15px;
+  display: flex;
+  flex-flow: column;
+}
+.product-info > * {
+  margin-bottom: 20px;
+}
+
+.product-desc {
+  font-size: 20px;
+}
+@media screen and (max-width: 1399.98px) {
+  .product-desc {
+    font-size: 16px;
+  }
+}
+
+.price {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+}
+
+.order-btn {
+  padding: 10px 25px;
+  border-radius: 25px;
+  margin-left: 15px;
+  border: 3px solid transparent;
+  outline: none;
+  transition: all 0.1s ease-in;
+  font-size: 16px;
+}
+@media screen and (max-width: 991.98px) {
+  .order-btn {
+    font-size: 14px;
+  }
+}
+
+.order-btn.dark {
+  background-color: #e2b58d;
+  color: black;
+}
+
+.order-btn.dark:active {
+  background-color: #bf7431;
+}
+
+.order-btn.light {
+  background-color: #6E85B7;
+  color: #fbfaf5;
+}
+
+.order-btn.light:active {
+  background-color: #37486f;
+}/*# sourceMappingURL=styles.css.map */

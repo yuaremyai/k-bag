@@ -1,0 +1,92 @@
+.sweater{
+    padding: 25px 15px;
+}
+
+.sweater-text{
+    text-align: center;
+    font-size: 20px;
+    padding-bottom: 15px;
+
+    @media screen and (max-width: $breakpoint992) {
+        font-size: 16px;
+    }
+
+    @media screen and (max-width: $breakpoint768) {
+        font-size: 14px;
+    }
+}
+
+.order-link{
+    text-decoration: underline;
+    transition: color 0.2s ease-in; 
+}
+
+.order-link.dark:hover{
+    color: $secondary-dark;
+}
+
+.order-link.light:hover{
+    color: $secondary-light;
+}
+
+.carousel{
+    position: relative;
+    height: 600px;
+
+    @media screen and (max-width: $breakpoint992) {
+        height: 400px;
+    }
+
+    @media screen and (max-width: $breakpoint480) {
+        height: 300px;
+    }
+}
+
+.carousel-image{
+    width: 600px;
+    position: absolute;
+    left: 50%;
+    transform:translateX(-50%);
+    opacity: 0;
+    transition: 0.3s opacity ease-in-out;
+
+    @media screen and (max-width: $breakpoint992) {
+        width: 400px;
+    }
+
+    @media screen and (max-width: $breakpoint480) {
+        width: 300px;
+    }
+}
+
+.carousel-image.active{
+    opacity: 1;
+}
+
+.carousel-btn{
+    padding: 10px 5px;
+    outline: none;
+    border: none;
+    position: absolute;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.carousel-btn.dark{
+    background-color: transparentize($black, 0.8);
+}
+
+.carousel-btn.light{
+    background-color: transparentize($white, 0.8);
+}
+
+.btn-left{
+    top: 50%;
+    transform:translateY(-50%);
+}
+
+.btn-right{
+    top: 50%;
+    transform:translateY(-50%);
+    right: 0;
+}
