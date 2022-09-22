@@ -3,10 +3,11 @@ function get_forms(event){
     email = document.getElementById('email').value
     password = document.getElementById('pass').value
     event.submitter.classList.contains('log-btn') ? login(): register()
+    data = {'email': email, 'password': password}
 }
 
+
 function register(){
-    data = {'email': email, 'password': password}
     const xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/login/register")
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -18,13 +19,18 @@ function register(){
             document.querySelector('.status-block').style.color = 'red'
             return
         }
-        document.querySelector('.status-block').textContent = resp.message
-        document.querySelector('.status-block').style.color = 'inherit'
-        // call login() to perform login after successful registration 
+        login()
     }
 }
 
+
 function login(){
-    retutn
-    
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/login/auth")
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.send(JSON.stringify(data))
+    xhttp.onload = function(){
+        resp = JSON.parse(this.response)
+        localStorage.setItem('token', resp.token)
+    }
 }
