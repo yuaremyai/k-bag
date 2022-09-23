@@ -1,3 +1,7 @@
+import axios from 'axios'
+
+console.log(axios)
+
 function get_forms(event){
     event.preventDefault()
     email = document.getElementById('email').value
