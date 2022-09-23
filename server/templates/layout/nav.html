@@ -2,5 +2,9 @@
             <li class="nav-item dark brand-title"><a href="/">K-Bag</a></li>
             <li class="nav-item theme-svg"><img src="{{ url_for('static', filename='images/svg/dark.svg') }}" class="theme-chng"></li>
             <li class="nav-item dark cart-btn"><a href="#">Cart</a></li>
-            <li class="nav-item dark sign-btn"><a href="login">Sign in</a></li>
+            {% if isLogged %}
+                <li class="nav-item dark sign-btn"><a href="logout">Logout</a></li>
+            {% else %}
+                <li class="nav-item dark sign-btn"><a href="login">Sign in</a></li>
+            {% endif %}
         </ul>

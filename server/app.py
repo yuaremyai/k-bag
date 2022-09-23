@@ -4,7 +4,7 @@ from models.user_model import Users
 from models.product_model import Products
 from models.token_model import Tokens
 from flask_migrate import Migrate
-from token_service import generate_access_token, encode_token, generate_refresh_token
+from token_service import generate_access_token, decode_token, generate_refresh_token
 
 from dotenv import load_dotenv
 import os
@@ -20,16 +20,27 @@ db.init_app(app)
 migrate = Migrate(app, db)
 
 
+def check_auth(request):
+    isLogged = False
+    token = request.headers.get('Authorization')
+    if token:
+        encode = decode_token(token, True)
+        if encode:
+            isLogged = True
+    return isLogged
+
 @app.route("/")
 def index():
+    isLogged = check_auth(request)
     sweaters = Products.query.filter_by(name = 'sweater').all()
-    return render_template('index.html', sweaters = sweaters)
+    return render_template('index.html', sweaters = sweaters, isLogged=isLogged)  #Login confirm
 
 
 @app.route('/product')
 def prod():
+    isLogged = check_auth(request)
     sweaters = Products.query.filter_by(name = 'sweater').all()
-    return render_template('product.html', sweaters = sweaters)
+    return render_template('product.html', sweaters = sweaters, isLogged=isLogged)
 
 
 @app.route('/login')
@@ -45,11 +56,8 @@ def register_user():
     #if no user in database response 400
     if user:
         return make_response(jsonify({'message':'User already exist'}), 400)
-    refresh = generate_access_token({'email': data['email'], })
     user = Users(data['email'], data['password'])
     db.session.add(user)
-    db.session.commit()
-    db.session.add(Tokens(refresh, user_id=user.id))
     db.session.commit()
     return make_response(jsonify({'message':'Successfully registered'}), 200)
 
@@ -64,6 +72,9 @@ def auth_user():
     if not user:
         return make_response(jsonify({'message':'User doesn\'t exist'}), 400)
     if user.email == data['email'] and user.password == data['password']:
-        token = generate_access_token({'email': data['email']})
-        return make_response(jsonify({'message':'Successfully logged in', 'token': token}), 200)
+        access_token = generate_access_token({'email': user.email, 'id': user.id})
+        refresh_token = generate_refresh_token({'email': user.email, 'id': user.id})
+        db.session.add(Tokens(refresh_token, user_id=user.id))
+        db.session.commit()
+        return make_response(jsonify({'message':'Successfully logged in', 'token': access_token}), 200)
     return make_response(jsonify({'message':'User doesn\'t exist'}, 400))
