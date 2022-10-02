@@ -20,11 +20,13 @@ def generate_refresh_token(payload, expiresIn=604800):
     return refresh
 
 
-def encode_token(token, isAccess):
+def decode_token(token, isAccess):
     try:
         if isAccess:
             return jwt.decode(token, os.environ.get('JWT_ACCESS_SECRET'), algorithms='HS256')
         else:
             return jwt.decode(token, os.environ.get('JWT_REFRESH_SECRET'), algorithms='HS256')
+    except jwt.ExpiredSignatureError:
+        return False
     except jwt.DecodeError:
         return False

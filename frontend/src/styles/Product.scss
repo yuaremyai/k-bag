@@ -1,0 +1,135 @@
+@import './vars';
+
+.content{
+    margin-top: 10px;
+    padding: 10px 15px;
+}
+.product-title{
+    font-size: 30px;
+    padding: 5px;
+    @media screen and (max-width: $breakpoint768) {
+        text-align: center;
+    }
+    @media screen and (max-width: $breakpoint480) {
+        font-size: 20px;
+    }
+}
+
+.image-container{
+    display: flex;
+
+    @media screen and (max-width: $breakpoint992) {
+        flex-flow: column;
+    }
+}
+
+.product-main-img{
+    height: 350px;
+    padding-right: 30px;
+
+    @media screen and (max-width: $breakpoint992) {
+        margin: 10px auto;
+        padding: 0px;
+    }
+    @media screen and (max-width: $breakpoint480) {
+        height: 280px;
+    }
+}
+
+.stls-container{
+    @media screen and (max-width: $breakpoint992) {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.product-image{
+    height: 50px;
+    margin-right: 10px;
+
+    @media screen and (max-width: $breakpoint992) {
+        height: 70px;
+    }
+    @media screen and (max-width: $breakpoint480) {
+        height: 50px;
+    }
+}
+
+.swtr-stl{
+    display:none;
+}
+
+label{
+    display: inline-block;
+}
+
+.swtr-stl:checked ~ .product-image.dark, .product-image.dark:hover{
+    outline: 3px solid $secondary-dark;
+}
+
+.swtr-stl:checked ~ .product-image.light, .product-image.light:hover{
+    outline: 3px solid $secondary-light;
+}
+
+
+.product-info{
+    width: 100%;
+    padding: 0px 15px 10px 15px;
+    display: flex;
+    flex-flow: column;
+
+    > *{
+        margin-bottom: 20px;
+    }
+}
+
+.product-desc{
+    font-size: 20px;
+
+    @media screen and (max-width: $breakpoint1400) {
+        font-size: 16px;
+    }
+}
+
+.price{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+.order-btn{
+    padding: 10px 25px;
+    border-radius: 25px;
+    margin-left: 15px;
+    border: 3px solid transparent;
+    outline: none;
+    transition: all 0.1s ease-in;
+    font-size: 16px;
+    cursor: pointer;
+
+    @media screen and (max-width: $breakpoint992) {
+        font-size: 14px;
+    }
+
+}
+
+.order-btn.dark{
+    background-color: $primary-dark;
+    color: $black;
+}
+
+.order-btn.dark:active{
+    background-color: $secondary-dark;
+}
+
+.order-btn.light{
+    background-color: $primary-light;
+    color: $white;
+}
+
+.order-btn.light:active{
+    background-color: $secondary-light;
+}
+
