@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+@import "./vars";
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+body{
+    background-image: url(../images/back.png);
+    background-size: 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+    @media screen and (max-width: $breakpoint768) {
+        background-image: none;
+    }
+}
+
+body.dark{
+    background-color: $black;
+}
+
+body.light{
+    background-color: $white;
+}
+
+.App{
+    width: 70%;
+    margin: auto;
+
+    @media screen and (max-width: $breakpoint768) {
+        width: 100%;
+    }
+}
+
+.main > *{
+    margin-top: 10px;
+}

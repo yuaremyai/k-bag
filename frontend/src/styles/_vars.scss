@@ -1,0 +1,24 @@
+$primary-dark: #e2b58d;
+$secondary-dark: darken($primary-dark, 25%);
+$darkback: #161616;
+$black: #000000ff;
+
+$primary-light: #6E85B7;
+$secondary-light: darken($primary-light, 25%);
+$lightback: #F8F9D7;
+$white: #fbfaf5ff;
+
+$breakpoint1400: 1399.98+px;
+$breakpoint992: 991.98+px;
+$breakpoint768: 767.98+px;
+$breakpoint480: 479.98+px;
+
+.light{
+    color: $primary-light;
+    background-color: $lightback;
+}
+
+.dark{
+    color: $primary-dark;
+    background-color: $darkback;
+}
