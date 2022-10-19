@@ -6,10 +6,12 @@ class Products(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
-    img_url = db.Column(db.String())
     type = db.Column(db.String())
+    price = db.Column(db.Integer)
+    stock = db.Column(db.Integer)
 
-    def __init__(self, name, img_name, type):
+    def __init__(self, name, type, price, stock):
         self.name = name
-        self.img_url= f'{img_name}.jpg'
         self.type = type
+        self.price = price
+        self.stock = stock

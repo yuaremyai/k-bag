@@ -4,9 +4,9 @@ import Bag from './Bag';
 import Carousel from "./Carousel";
 import get_images from '../../get_images'
 
+const images = get_images()
+
 function HomePage(){
-    
-    const images = get_images()
 
     const[image, setImage] = useState(images[0])
 
@@ -16,10 +16,11 @@ function HomePage(){
         if (isLeft){
             i = (i-1 < 0) ? images.length-1 : i-1
             setImage(images[i])
-            return
         }
-        i = (i+1 > images.length - 1) ? 0 : i+1
-        setImage(images[i])
+        else {
+            i = (i+1 > images.length - 1) ? 0 : i+1
+            setImage(images[i])
+        }
     }
     
     return(

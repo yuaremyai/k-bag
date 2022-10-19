@@ -11,14 +11,16 @@ import './styles/App.scss'
 import {ThemeContext} from './contexts';
 
 function App() {
-  const [modal, setModal] = useState(false)
 
-  if (localStorage.theme === undefined) {
-    localStorage.setItem('theme', 'dark')
-  }
-
-  const [theme, setTheme] = useState(localStorage.theme)
+  useEffect(() =>{
+    if (localStorage.theme === undefined) {
+      localStorage.setItem('theme', 'dark')
+    }  
+  }, [])
   
+  const [modal, setModal] = useState(false)
+  const [theme, setTheme] = useState(localStorage.theme)
+
   useEffect( () =>{
     localStorage.setItem('theme', theme)
     document.querySelector('body').classList = theme

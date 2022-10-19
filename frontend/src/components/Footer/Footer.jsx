@@ -13,7 +13,7 @@ function Footer () {
                     <li>Phone: +1234567890</li>
                     <li>Email: k.bags@email.com</li>
                 </ul>
-                &copy; K-bag corp.
+                &copy; yuaremyai
             </div>
         </footer>
     )
