@@ -1,50 +1,44 @@
 import React, { useContext, useState } from "react";
-import '../styles/LoginModal.scss'
+import '../styles/LoginModal.scss';
 import { ThemeContext } from "../contexts";
-import axios from 'axios';
+import api from '../httpService';
 
-function LoginPage({modal, setModal}){
-    const url = process.env.REACT_APP_URL
+function LoginPage({modal, setModal, setAuth}){
 
     const {theme} = useContext(ThemeContext)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    
     const cl = ['modal']
 
     if(modal){
         cl.push('active')
     }
 
-    axios.interceptors.request.use(function (config) {
-        config.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`
-        return config;
-    })
-
     const login = (event) => {
         event.preventDefault()
-
-        // let data = {'email': email, 'password': password}
-        // const xhttp = new XMLHttpRequest()
-        // xhttp.open('POST', `${url}/login`)
-        // xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
-        // xhttp.send(JSON.stringify(data))
-        // xhttp.onload = function(){
-        //     data = JSON.parse(this.response)
-        //     localStorage.setItem('token', data.token)
-        //     console.log('hi')
-        // }
-        
-        setModal(false)
+        api.post('/login', {'email': email, 'password': password}) 
+        .then( (response) => {
+            localStorage.setItem('token', response.data.token)
+            setModal(false)
+            setAuth(true)
+            })
+            .catch( (error) => {
+                alert(error.response.data.message)
+              });
     }
 
     const register = (event) => {
         event.preventDefault()
-
-        // Registration request
-        
-        setModal(false)
+        api.post('/register', {'email': email, 'password': password}) 
+        .then( (response) => {
+            alert(response.data.message)
+            setModal(false)
+            })
+            .catch( (error) => {
+                alert(error.response.data.message)
+              });        
     }
 
     return(

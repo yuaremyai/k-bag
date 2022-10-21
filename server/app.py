@@ -15,7 +15,7 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://postgres:{os.environ.get('DB_PASSWORD')}@localhost:5432/k_bag"
 
 db.init_app(app)
@@ -37,7 +37,7 @@ def set_token(token, id):
     db.session.commit()
 
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def index():
     if check_auth(request):
         return make_response({'message':'User authorized'}, 200)
@@ -86,12 +86,13 @@ def refresh():
             refresh_token = generate_refresh_token(token_data)
             set_token(refresh_token, token_data['id'])
             res = make_response({'message': 'Token sucessfully refreshed', 'token':access_token}, 200)
-            return res.set_cookie('refreshToken', refresh_token, httponly=True)
+            res.set_cookie('refreshToken', refresh_token, httponly=True)
+            return res
         return make_response({'message': 'Bad token'}, 400)
-    return make_response({'message': 'User unauthorized'}, 401)
+    return make_response({'message': 'Token expired or not exist'}, 401)
 
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout', methods=['GET'])
 def logout():
     user = check_auth(request)
     res = make_response({'message': 'Sucessfully logged out'}, 200)
