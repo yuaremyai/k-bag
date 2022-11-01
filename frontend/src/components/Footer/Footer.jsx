@@ -1,11 +1,12 @@
-import React, {useContext} from "react";
+import React from "react";
 import '../../styles/Footer.scss';
-import { ThemeContext } from "../../contexts";
+import { useSelector } from 'react-redux'
 
-function Footer () {
-    const {theme} = useContext(ThemeContext)
+function Footer() {
 
-    return(
+    const theme = useSelector(state => state.theme.theme)
+
+    return (
         <footer>
             <div className={`footer ${theme}`}>
                 <ul className="footer-info">

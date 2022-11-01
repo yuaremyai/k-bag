@@ -1,22 +1,30 @@
 import React from "react";
-import { useContext, useState, useEffect } from "react";
-import { ThemeContext } from "../../contexts";
+import { Link } from "react-router-dom";
+
 import '../../styles/NavBar.scss';
 import dark from '../../images/svg/dark.svg';
 import light from '../../images/svg/light.svg';
-import { Link } from "react-router-dom";
+
+import { useDispatch, useSelector } from 'react-redux'
+import { setLight, setDark } from '../../store/themeSlice';
+import { setAuthFalse } from "../../store/authSlice";
+import { showModal } from "../../store/modalSlice";
+
 
 import api from '../../httpService';
 
-function NavBar({ setModal, isAuth, setAuth }) {
-    const { theme, setTheme } = useContext(ThemeContext)
+function NavBar() {
+
+    const isAuth = useSelector(state => state.auth.isAuth) 
+    const theme = useSelector(state => state.theme.theme)
+    const dispatch = useDispatch()
 
     const handleClick = () => {
         if (theme === 'light') {
-            setTheme('dark')
+            dispatch(setDark())
         }
         else {
-            setTheme('light')
+            dispatch(setLight())
         }
     }
 
@@ -24,7 +32,7 @@ function NavBar({ setModal, isAuth, setAuth }) {
         api.get('/logout')
             .then(function (response) {
                 localStorage.removeItem('token')
-                setAuth(false)
+                dispatch(setAuthFalse())
             })
     }
 
@@ -32,14 +40,14 @@ function NavBar({ setModal, isAuth, setAuth }) {
         <ul className={`nav-bar ${theme}`}>
             <li className={`nav-item brand-title ${theme}`}><Link to="/">K-Bag</Link></li>
             {(theme === 'dark')
-                ? <li className="nav-item theme-svg" onClick={handleClick}><img src={dark} className="theme-chng" /></li>
-                : <li className="nav-item theme-svg" onClick={handleClick}><img src={light} className="theme-chng" /></li>
+                ? <li className="nav-item theme-svg" onClick={handleClick}><img src={dark} alt="" className="theme-chng" /></li>
+                : <li className="nav-item theme-svg" onClick={handleClick}><img src={light} alt="" className="theme-chng" /></li>
             }
-            <li className={`nav-item cart-btn ${theme}`}><Link to="/">Cart</Link></li>
+            <li className={`nav-item cart-btn ${theme}`}><Link to="/cart">Cart</Link></li>
             {isAuth
                 ? <li className={`nav-item sign-btn ${theme}`} onClick={logout}>Logout</li>
                 : <li className={`nav-item sign-btn ${theme}`}
-                    onClick={() => { setModal(true) }}>Sign in</li>
+                    onClick={() => { dispatch(showModal()) }}>Sign in</li>
             }
         </ul>
     )

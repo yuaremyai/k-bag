@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import { ThemeContext } from "../../contexts";
+import React from "react";
+import { useSelector } from 'react-redux'
 import bag from '../../images/bag.jpg';
 import '../../styles/Bag.scss';
 
 function Bag() {
-    const { theme } = useContext(ThemeContext)
+    const theme = useSelector(state => state.theme.theme)
 
     return (
         <div className={`bag ${theme}`}>

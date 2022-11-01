@@ -11,7 +11,6 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 
-
 load_dotenv()
 
 app = Flask(__name__)
@@ -61,8 +60,6 @@ def register_user():
 def auth_user():
     data = request.get_json()
     user = Users.query.filter_by(email = data['email']).first()
-    #If user doesn't exist in database or wrong email/password response 400
-    #Else return access token
     if not user:
         return make_response({'message':'User doesn\'t exist'}, 400)
     if user.email == data['email'] and user.password == data['password']:
@@ -101,7 +98,7 @@ def logout():
     return res
 
 
-@app.route('/cart', methods=['GET'])
+@app.route('/getcart', methods=['GET'])
 def get_cart():
     user = check_auth(request)
     if not user:
@@ -110,17 +107,33 @@ def get_cart():
     products = {}
     for obj in cart_products:
         product = Products.query.filter_by(id = obj.product_id).first()
-        products[product.name] = {'type':product.type, 'price':product.price, 'stock':product.stock}
+        if product.name in products.keys():
+            products[product.name]['count'] = products[product.name]['count'] + 1
+        else:
+            products[product.name] = {'type':product.type, 'price':product.price, 'stock':product.stock, 'count': 1}
     return make_response({'products': products}, 200)
 
+@app.route('/removecart', methods=['POST'])
+def remover_cart():
+    user = check_auth(request)
+    if not user:
+        return make_response({'message':'Unathorized error'}, 401)
+    data = request.get_json()
+    product = Products.query.filter_by(name = data['name']).first()
+    cart_product = Cart.query.filter_by(user_id = user['id'], product_id = product.id).first()
+    db.session.delete(cart_product)
+    db.session.commit()
+    return make_response({'message': 'Sucessfully deleted from cart'}, 200)
 
-@app.route('/getcart', methods=['POST'])
+
+@app.route('/postcart', methods=['POST'])
 def add_to_cart():
     user = check_auth(request)
     if not user:
         return make_response({'message':'Unathorized error'}, 401)
     data = request.get_json()
-    db.session.add(Cart(user=user['id'], product=data['product']))
+    product = Products.query.filter_by(name = data['name']).first()
+    db.session.add(Cart(user=user['id'], product= product.id))
     db.session.commit()
     return make_response({'message': 'Sucessfully added to cart'}, 200)
     

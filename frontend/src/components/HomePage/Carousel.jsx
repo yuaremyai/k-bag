@@ -1,11 +1,11 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CSSTransition } from 'react-transition-group';
-import { ThemeContext } from "../../contexts";
+import { useSelector } from 'react-redux'
 import '../../styles/Carousel.scss';
 
 function Carousel({ carousel, image }) {
-    const { theme } = useContext(ThemeContext)
+    const theme = useSelector(state => state.theme.theme)
 
     const [anim, setAnim] = useState(true)
     const [isLeft, setLeft] = useState(null)
